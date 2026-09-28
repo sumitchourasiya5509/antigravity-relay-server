@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="./assets/antigravity.png" alt="Antigravity Mobile Relay Server" width="220">
-  <h1>Antigravity Mobile Relay Server 📱🚀</h1>
-  <p><strong>Secure HTTPS / WSS Relay Bridge connecting Flutter Mobile Devices to Google Antigravity IDE</strong></p>
+  <img src="./assets/antigravity.png" alt="AG Remote Relay Server" width="220">
+  <h1>AG Remote Relay Server 📱🚀</h1>
+  <p><strong>Secure HTTPS / WSS Relay Bridge for the "AG Remote: AI Coding Companion" Mobile App</strong></p>
 </div>
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -12,9 +12,9 @@
 
 ## 📖 Overview
 
-The **Antigravity Mobile Relay Server** provides a secure, encrypted real-time bridge between your desktop workstation running **Google Antigravity** and your mobile phone (Android / iOS Flutter app).
+The **AG Remote Relay Server** provides a secure, encrypted real-time bridge between your desktop workstation running **Google Antigravity** and your mobile phone running the **AG Remote: AI Coding Companion** app.
 
-Whether connected over **Local Wi-Fi** or remotely via **Tailscale Private Mesh VPN (5G / Cellular)**, this relay enables full control, prompt generation, interactive action reviews (Allow / Reject), and instant browsing of your complete Antigravity conversation history directly from your phone.
+Whether connected over **Local Wi-Fi** or remotely via **Tailscale Private Mesh VPN (5G / Cellular)**, this relay enables full remote control, prompt generation, interactive action reviews (Allow / Reject), and instant browsing of your complete conversation history directly from your phone.
 
 ---
 
@@ -35,15 +35,15 @@ Whether connected over **Local Wi-Fi** or remotely via **Tailscale Private Mesh 
 
 ```mermaid
 graph LR
-    subgraph MobileDevice ["📱 Phone (Antigravity Mobile App)"]
-        FlutterApp["Flutter Native App<br/>(Dark UI, Biometrics, Keystore)"]
+    subgraph MobileDevice ["📱 Phone (AG Remote Mobile App)"]
+        FlutterApp["AG Remote App<br/>(Dark UI, Biometrics, Keystore)"]
     end
 
     subgraph Network ["🔒 Local Wi-Fi / Tailscale Mesh VPN"]
         Tunnel["Encrypted HTTPS / WSS<br/>(Port 3000)"]
     end
 
-    subgraph HostPC ["💻 Workstation (Host)"]
+    subgraph HostPC ["💻 Workstation (Host Laptop)"]
         Relay["Node.js Relay Server<br/>(server.js)"]
         CDP["Antigravity IDE (Port 9000)<br/>Chrome DevTools Protocol"]
         Brain["Antigravity Brain Logs<br/>(~/.gemini/antigravity/brain)"]
@@ -61,7 +61,7 @@ graph LR
 
 ### 1. Prerequisites
 - **Node.js**: v18.0.0 or later ([Download Node.js](https://nodejs.org/))
-- **Google Antigravity**: Installed and executable on your host system
+- **Google Antigravity**: Installed and running on your host system
 - *(Optional for 5G access)* **Tailscale**: For secure peer-to-peer VPN without port-forwarding ([Download Tailscale](https://tailscale.com/))
 
 ---
@@ -149,21 +149,12 @@ Found Antigravity IDE target: ...
 
 ---
 
-## 📱 Next Steps to Perform in the Flutter Mobile App
+## 📱 Next Steps to Perform in the Mobile App
 
-Once the Relay Server is running, configure and connect your mobile app:
+Once the Relay Server is running, connect your mobile app:
 
-### Step 1: Compile or Launch the Mobile App
-From your `antigravity_mobile` project folder:
-- **Direct Run on Connected Phone (USB)**:
-  ```bash
-  flutter run --release
-  ```
-- **Build Standalone Release APK**:
-  ```bash
-  flutter build apk --release
-  ```
-  Transfer the APK located at `build/app/outputs/flutter-apk/app-release.apk` to your Android device and install it.
+### Step 1: Install "AG Remote" on Your Phone
+Install **AG Remote: AI Coding Companion** on your phone from the Google Play Store (or install the pre-built APK).
 
 ### Step 2: Accept the Self-Signed Certificate
 Because the relay uses self-signed HTTPS for local encryption:
@@ -172,10 +163,10 @@ Because the relay uses self-signed HTTPS for local encryption:
 3. Tap **Advanced** ➔ **Proceed to site (unsafe)** to establish browser certificate trust.
 
 ### Step 3: Connect & Pair in the App
-1. Launch **Antigravity Mobile** on your phone.
+1. Launch **AG Remote** on your phone.
 2. Enter the **Server URL**:
    - On the same Wi-Fi network: `https://192.168.1.21:3000`
-   - On mobile data (5G/4G): `https://<tailscale-ip>:3000`
+   - On mobile data (5G/4G via Tailscale): `https://<tailscale-ip>:3000`
 3. Enter the **Passcode** configured in your `.env` (`APP_PASSWORD`).
 4. Tap **Connect & Pair**.
 5. Once paired, enable **Biometric Unlock (Fingerprint / Face)** for instant future access.
